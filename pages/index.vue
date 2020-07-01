@@ -1,11 +1,11 @@
 <template>
   <div class="container">
-    <b-container class="bv-example-row">
+    <b-container>
       <b-row>
         <b-col lg="5" sm="12">
           <ReceptionConsole/>
         </b-col>
-        <b-col lg="7" sm="12">
+        <b-col lg="7" sm="12" class="bg-service-console">
           <ServiceConsole/>
         </b-col>
       </b-row>
@@ -24,12 +24,16 @@ components: {
 </script>
 
 <style lang="sass">
-  $maincolor: #eee;
+  $maincolor: #666;
   $paramsnewcustomer: 2px 0px 5px 0px rgba(0,0,0,0.75);
   $boxnewcustomer : #dedede;
   $borderraduis: 5px;
   $waitinglistbgcolor:  #007bff;
   $waitinglisttextcolor:  #fff;
+  $bg-service-console: #ffffff96;
+
+  body
+    background : $maincolor;
 
   .container
     margin: 0 auto;
@@ -38,7 +42,7 @@ components: {
     justify-content: center;
     align-items: center;
     text-align: center;
-    background : $maincolor;
+
 
   .box-newcustomer
     background: $boxnewcustomer;
@@ -56,6 +60,11 @@ components: {
   .dateday
     padding-top: 10px;
 
+  .waiting-list
+    overflow-x: hidden;
+    overflow-y: scroll;
+    height: 395px;
+
   .waiting-list-ticket
     background: $waitinglistbgcolor;
     border-radius: $borderraduis;
@@ -63,7 +72,14 @@ components: {
     -moz-box-shadow: $paramsnewcustomer;
     box-shadow: $paramsnewcustomer;
     color: $waitinglisttextcolor;
-    padding: 19px 2px;
+    padding: 29px 2px;
+
+  .tickets
+    padding: 10px 0;
+
+  .bg-service-console
+    background-color: $bg-service-console;
+    padding: 25px;
 
 
 

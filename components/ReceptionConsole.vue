@@ -3,8 +3,8 @@
     <img src="https://res.cloudinary.com/djdkufwrh/image/upload/v1593545854/Qnomy/test.jpg" alt="Reception Console" class="img-fluid new-customer">
     <div class="box-newcustomer">
       <div class="d-flex justify-content-between dateday">
-        <h6 class="font-weight-bold">Today</h6>
-        <p class="font-weight-bold">{{ someDate | moment("ddd, hA") }}</p>
+        <h6 class="font-weight-bold">Welcome</h6>
+        <p class="font-weight-bold">{{ dateDay | moment("ddd, hA") }}</p>
 
       </div>
       <div>
@@ -32,7 +32,7 @@
             </b-row>
 
           </b-form-group>
-          <b-button type="submit" @click="$store.commit('increment')" variant="primary">Add customer</b-button>
+          <b-button type="submit" @click="addTicket"  variant="primary">Add customer</b-button>
           <b-button class="ml-2" @click="resetForm()">Reset</b-button>
         </b-form>
       </div>
@@ -51,7 +51,7 @@ export default {
       form: {
         name: null
       },
-      someDate,
+      dateDay: new Date(),
 
     };
   },
@@ -65,6 +65,10 @@ export default {
     }
   },
   methods: {
+    addTicket () {
+      debugger
+      this.$store.commit('ADD_TICKET', {name: this.form.name, dateCreate: new Date()})
+    },
     validateState(name) {
       const { $dirty, $error } = this.$v.form[name];
       return $dirty ? !$error : null;
