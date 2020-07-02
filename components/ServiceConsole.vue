@@ -1,28 +1,39 @@
 <template>
   <div>
+    <b-modal v-if=" currentTicket!= null" id="modal-ticket" centered  title="Current Customer" static no-auto-hide>
+      <p>Ticket № {{ currentTicket.id }} <br> {{ currentTicket.name }} </p>
+      <p class="ticket-roomagent">Room: 125 | Agent : Ohad</p>
+    </b-modal>
+    <div class="waiting-list-title"><h3>Waiting list service</h3>
+    <p>Please wait until an agent call you, thanks</p></div>
     <div class="waiting-list">
-      <h3>Waiting list service</h3>
-      {{ tickets }}
-      <p>Please wait until an agent call you, thanks</p>
       <hr>
-      <div v-for="(item, index) in tickets" class="tickets">
+      <div v-for="(item in tickets" class="tickets">
         <b-row align-h="center">
-          <b-col sm="2" class="waiting-list-ticket">
-            <h2>{{ item.id }} </h2>
+          <b-col sm="4">
+            <div class="waiting-list-ticket">
+              <p>Ticket <br><span>№ {{ item.id }}</span></p>
+            </div>
           </b-col>
-          <b-col sm="8">
+          <b-col sm="4">
             <p>Customer arrival:<br><span class="font-weight-bold ">{{ item.dateCreate |moment("dddd, MMMM Do YYYY, h:mm:ss a") }}</span></p>
-            <p>{{ item.name }} | service </p>
-            <a @click="removeItem(item)">delete</a>
-            <a @click="view(item)">VIEW</a>
+            <p> Customer: {{ item.name }} </p>
+          </b-col>
+          <b-col sm="4">
+          <div class="buttons">
+            <a @click="removeItem(item)" class="delete"><img src="https://res.cloudinary.com/djdkufwrh/image/upload/v1593670438/Qnomy/delete.png" /></a>
+            <a @click="view(item)" class="call"><img src="https://res.cloudinary.com/djdkufwrh/image/upload/v1593669624/Qnomy/call.png" /></a>
+
+          </div>
           </b-col>
         </b-row>
+        <hr>
       </div>
-      <hr>
+
 
     </div>
 
-    <h1>Current Ticket : {{ currentTicket }}</h1>
+
   </div>
 </template>
 <script>
@@ -31,9 +42,6 @@ import { mapGetters } from 'vuex'
     data() {
       return {
           dateCreateTicket: new Date(),
-          items: [
-          { name: 'Foo' },
-        ]
       }
     },
     computed: {
@@ -44,7 +52,8 @@ import { mapGetters } from 'vuex'
     },
     methods: {
       view(item){
-        this.$store.commit('VIEW_TICKET', item)
+        this.$store.commit('VIEW_TICKET', item),
+        this.$bvModal.show('modal-ticket')
       },
       removeItem(item){
         this.$store.commit('DELETE_TICKET', item)
